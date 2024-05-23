@@ -1,8 +1,8 @@
 /*CONTROLES DO JOGO
  * SETAS PARA MOVIMENTAÇÃO
  * F11 PARA ENTRAR EM MODO JANELA
- * ESC PARA FECHAR
  * F11 PARA ENTRAR EM MODO TELA CHEIA
+ * ESC PARA FECHAR JOGO
  */
 
  //Desenvolvido por Lucas Medeiros Barreira--JURUBEIO
@@ -12,20 +12,22 @@ programa
 	inclua biblioteca Graficos-->g
 	inclua biblioteca Util-->u
 	inclua biblioteca Teclado-->tec
-	const inteiro largura=1820
-	const inteiro altura=920
+	inclua biblioteca Matematica
+	
+	inteiro largura
+	inteiro altura
 	inteiro y=660
-	inteiro x=675
+	inteiro x=680
 	inteiro ycoli1=-100
-	inteiro xcoli1=675
+	inteiro xcoli1=680
 	inteiro ycoli2=-180
-	inteiro xcoli2=595
-	inteiro xcoli3=515
-	inteiro xcoli4=435
-	inteiro xcoli5=345
-	inteiro xcoli6=755
-	inteiro xcoli7=835
-	inteiro xcoli8=915
+	inteiro xcoli2=600
+	inteiro xcoli3=520
+	inteiro xcoli4=440
+	inteiro xcoli5=350
+	inteiro xcoli6=760
+	inteiro xcoli7=840
+	inteiro xcoli8=920
 	inteiro ycoli3=-30
 	inteiro ycoli4=-90
 	inteiro ycoli5=-300
@@ -39,6 +41,8 @@ programa
 	
 	funcao inicio()
 	{
+		largura=g.largura_tela()
+		altura=g.altura_tela()
 		construir_janela()	
 	}
 	//construção e renderização da janela grafica
@@ -71,10 +75,12 @@ programa
 		g.limpar()
 	}
 	funcao desenhar_rua(){
-		//funcao para criação do desenho base da rua
+		real xrua=largura/2.75
+		inteiro xruarend=Matematica.arredondar(xrua, 0)
+		//função para criação do desenho base da rua
 		g.definir_cor(g.COR_PRETO)
 		//comando para definição de cor do objeto, nesse caso a rua
-		g.desenhar_retangulo(350 , 0 ,600, altura, falso, verdadeiro)
+		g.desenhar_retangulo(xruarend, 0 ,600, altura, falso, verdadeiro)
 		//definição das porpoções do objeto sendo em respectiva ordem eixo x, eixo y, largura do objeto, altura do objeto, arredondamento dos cantos e preenchimento do objeto
 	}
 	//função para desenho das faixa da rua
@@ -675,27 +681,27 @@ programa
 		//comando para definir a cor do objeto
 		g.definir_cor(g.COR_BRANCO)
 		//proporções do objeto
-		g.desenhar_retangulo(x, y, 35, 60, falso, verdadeiro)
+		g.desenhar_retangulo(x, y, 25, 60, falso, verdadeiro)
 	}
 	funcao desenhar2(){
 		//função para criação dos veiculos que o jogador tera de desviar
 		//segue o mesmo padrão de desenvolvimento do veiculo principal porem com posições diferentes do eixo x e y
 		g.definir_cor(g.COR_VERDE)
-		g.desenhar_retangulo(xcoli1, ycoli1, 35, 60, falso, verdadeiro)
+		g.desenhar_retangulo(xcoli1, ycoli1, 25, 60, falso, verdadeiro)
 		g.definir_cor(g.criar_cor(255 ,0 ,0))
-		g.desenhar_retangulo(xcoli2, ycoli2, 35, 70, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli2, ycoli2, 25, 70, verdadeiro, verdadeiro)
 		g.definir_cor(g.COR_AZUL)
-		g.desenhar_retangulo(xcoli3, ycoli3, 35, 40, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli3, ycoli3, 25, 40, verdadeiro, verdadeiro)
 		g.definir_cor(g.COR_BRANCO)
-		g.desenhar_retangulo(xcoli4, ycoli4, 35, 90, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli4, ycoli4, 25, 90, verdadeiro, verdadeiro)
 		g.definir_cor(g.criar_cor(128, 128, 128))
-		g.desenhar_retangulo(xcoli5, ycoli5, 50, 2000, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli5, ycoli5, 30, 2000, verdadeiro, verdadeiro)
 		g.definir_cor(g.criar_cor(0,250,128))
-		g.desenhar_retangulo(xcoli6, ycoli6, 35, 77, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli6, ycoli6, 25, 77, verdadeiro, verdadeiro)
 		g.definir_cor(g.COR_AMARELO)
-		g.desenhar_retangulo(xcoli7, ycoli7, 35, 70, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli7, ycoli7, 25, 70, verdadeiro, verdadeiro)
 		g.definir_cor(g.criar_cor(128, 128, 128))
-		g.desenhar_retangulo(xcoli8, ycoli8, 50, 2000, verdadeiro, verdadeiro)
+		g.desenhar_retangulo(xcoli8, ycoli8, 30, 2000, verdadeiro, verdadeiro)
 	}
 	funcao upd(){
 		//função para verificação frame a frame
@@ -714,7 +720,7 @@ programa
 				//condicional para criar uma forma de "aleatoriedade" nas aparições dos veiculos
 				se(ycoli1>1000){
 					//condicional se usada para que os veiculos apareçam intermitantemente
-					ycoli1=-100*b
+					ycoli1=-100
 				}
 				senao se(ycoli2>1000){
 					ycoli2=-140+b
@@ -758,13 +764,13 @@ programa
 			//condicional para verificar se ouve ou não colisão
 			se(xcoli1>x){
 				//primeiro veiculo em caso de colisão ao lado direito do objeto
-				se(xcoli1-x<35){
+				se(xcoli1-x<25){
 				u.aguarde(2000)
 				g.fechar_janela()
 				}
 			}
 			senao{
-				se(x-xcoli1<35){
+				se(x-xcoli1<25){
 					//primeiro veiculo em caso de colisão ao lado esquerdo do objeto
 				u.aguarde(2000)
 				g.fechar_janela()
@@ -775,7 +781,7 @@ programa
 			//verificador de colisão com o segundo veiculo
 			se(xcoli2>x){
 				//verificador em caso de colisão com o lado direito do segundo veiculo
-				se(xcoli2-x<35){
+				se(xcoli2-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
 				}
@@ -783,7 +789,7 @@ programa
 			}
 			senao{
 				//verificador em caso de colisão com o lado esquerdo do veiculo
-				se(x-xcoli2<35){
+				se(x-xcoli2<25){
 				u.aguarde(2000)
 				g.fechar_janela()
 				}
@@ -793,21 +799,21 @@ programa
 			//verificador de colisão com o segundo veiculo
 			se(xcoli3>x){
 				//verificador em caso de colisão com o lado direito do segundo veiculo
-				se(xcoli3-x<35){
+				se(xcoli3-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
 				}
 				senao{}
 			}
 			senao se(xcoli3<x){
-				se(x-xcoli3<35){
+				se(x-xcoli3<25){
 					u.aguarde(2000)
 					g.fechar_janela()
 				}
 			}
 			senao{
 				//verificador em caso de colisão com o lado esquerdo do veiculo
-				se(x-xcoli2<35){
+				se(x-xcoli2<25){
 				u.aguarde(2000)
 				g.fechar_janela()
 				}
@@ -817,7 +823,7 @@ programa
 			//verificador de colisão com o segundo veiculo
 			se(xcoli4>x){
 				//verificador em caso de colisão com o lado direito do segundo veiculo
-				se(xcoli4-x<35){
+				se(xcoli4-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
 				}
@@ -835,7 +841,7 @@ programa
 			//verificador de colisão com o segundo veiculo
 			se(xcoli6>x){
 				//verificador em caso de colisão com o lado direito do segundo veiculo
-				se(xcoli6-x<35){
+				se(xcoli6-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
 				}
@@ -843,7 +849,7 @@ programa
 			}
 			senao{
 				//verificador em caso de colisão com o lado esquerdo do veiculo
-				se(x-xcoli2<35){
+				se(x-xcoli2<25){
 				u.aguarde(2000)
 				g.fechar_janela()
 				}
@@ -853,7 +859,7 @@ programa
 			//verificador de colisão com o segundo veiculo
 			se(xcoli7>x){
 				//verificador em caso de colisão com o lado direito do segundo veiculo
-				se(xcoli7-x<35){
+				se(xcoli7-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
 				}
@@ -861,7 +867,7 @@ programa
 			}
 			senao{
 				//verificador em caso de colisão com o lado esquerdo do veiculo
-				se(x-xcoli7<35){
+				se(x-xcoli7<25){
 				u.aguarde(2000)
 				g.fechar_janela()
 				}
@@ -872,7 +878,7 @@ programa
 			//verificador de colisão com o segundo veiculo
 			se(xcoli8>x){
 				//verificador em caso de colisão com o lado direito do segundo veiculo
-				se(xcoli8-x<35){
+				se(xcoli8-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
 				}
@@ -880,7 +886,7 @@ programa
 			}
 			senao{
 				//verificador em caso de colisão com o lado esquerdo do veiculo
-				se(x-xcoli8<35){
+				se(x-xcoli8<25){
 				u.aguarde(2000)
 				g.fechar_janela()
 				}
@@ -890,14 +896,14 @@ programa
 		senao se(ycoli8<y){
 			se(y-ycoli8<2000){
 				se(xcoli8>x){
-					se(xcoli8-x<35){
+					se(xcoli8-x<25){
 						u.aguarde(2000)
 						g.fechar_janela()
 					}
 					senao{}
 				}
 				senao{
-					se(x-xcoli8<35){
+					se(x-xcoli8<25){
 						u.aguarde(2000)
 						g.fechar_janela()
 					}
@@ -918,16 +924,10 @@ programa
 			//controle para fechar aplicativo (codigo 27 equivale a tecla ESC)
 			g.fechar_janela()
 		}
-		senao se(tec.tecla_pressionada(27)){
-			//controlador para fechar o jogo
-			esccont++
-		}
 		senao se(tec.tecla_pressionada(122)){
 			se(tela_cheia==falso){
 			//controle para voltar ao modo tela cheia (codigo 122 equivale a tecla F11)
 			tela_cheia=verdadeiro
-			//esccont volta a valer zero para que seja possivel sair e voltar ao modo tela cheia mais de uma vez
-			esccont=0
 			}
 			senao{
 				tela_cheia=falso
@@ -937,9 +937,9 @@ programa
 	funcao upd1(){
 		se(ycoli5>y){
 			se(ycoli5-y<2000){
-			//verificador de colisão com o segundo veiculo
+			//verificador de colisão com o meio fio do lado esquerdo
 			se(xcoli5>x){
-				//verificador em caso de colisão com o lado direito do segundo veiculo
+				//verificador em caso de colisão com o lado direito do meio fio esquerdo
 				se(xcoli5-x<25){
 				u.aguarde(2000)	
 				g.fechar_janela()
@@ -947,7 +947,7 @@ programa
 				senao{}
 			}
 			senao{
-				//verificador em caso de colisão com o lado esquerdo do veiculo
+				//verificador em caso de colisão com o lado direito do meio fio direito
 				se(x-xcoli5<25){
 				u.aguarde(2000)
 				g.fechar_janela()
@@ -958,14 +958,14 @@ programa
 		senao se(ycoli5<y){
 			se(y-ycoli5<2000){
 				se(xcoli5>x){
-					se(xcoli5-x<50){
+					se(xcoli5-x<25){
 						u.aguarde(2000)
 						g.fechar_janela()
 					}
 					senao{}
 				}
 				senao{
-					se(x-xcoli5<50){
+					se(x-xcoli5<25){
 						u.aguarde(2000)
 						g.fechar_janela()
 					}
@@ -996,13 +996,14 @@ programa
 		}
 		}
 	}
+//só pra dar 1000
 }
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 84; 
+ * @POSICAO-CURSOR = 34300; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
